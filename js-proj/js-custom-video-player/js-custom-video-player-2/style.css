@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background-color: rgb(227, 236, 238);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  background-color: #000;
+  position: relative;
+  width: 60%;
+}
+
+h1 {
+  color: rgb(41, 41, 41);
+  margin-bottom: 20px;
+}
+
+.screen {
+  width: 100%;
+  background-color: #000 !important;
+}
+.container:hover .screen {
+  opacity: 0.66;
+}
+
+.controls {
+  width: 100%;
+  background: transparent;
+  color: #fff;
+  visibility: hidden;
+  position: absolute;
+  bottom: 0px;
+  left: 13px;
+  transform: translate(0, -15px);
+  display: flex;
+  align-items: center;
+}
+.container:hover .controls {
+  visibility: visible;
+}
+
+.visibility {
+  visibility: visible;
+}
+
+/* Progress range style */
+.progress {
+  height: 5px;
+  width: 70%;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 10px;
+}
+.progress:hover {
+  height: 7px;
+}
+
+.progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  background: #f8b864;
+  cursor: pointer;
+}
+
+.progress::-moz-range-thumb {
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  background: #f8b864;
+  cursor: pointer;
+}
+
+.btn-group {
+  padding: 7px 10px;
+}
+
+.btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.btn ion-icon {
+  font-size: 20px;
+  color: #fff;
+}
+.btn-play ion-icon {
+  font-size: 26px;
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.timestamp {
+  font-size: 13px;
+  color: #fff;
+  margin-left: 15px;
+}
+
+.play-btn-onscreen {
+  color: #fff;
+  font-size: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  right: 35px;
+  bottom: 40px;
+  background: #0d0d0de0;
+  border-radius: 5px;
+  font-size: 15px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 150ms ease-in;
+}
+
+.dropdown ul {
+  list-style: none;
+  padding: 15px 15px 5px 15px;
+  margin: 0;
+}
+.dropdown ul li {
+  margin-bottom: 10px;
+  cursor: no-drop;
+}
+.dropdown-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 1200px) {
+  .progress {
+    width: 65%;
+  }
+}
+@media (max-width: 900px) {
+  .container {
+    width: 90%;
+  }
+  .controls {
+    width: 95%;
+  }
+  .progress {
+    width: 70%;
+  }
+}
+
+@media (max-width: 600px) {
+  .controls {
+    width: 93%;
+  }
+  .progress {
+    width: 58%;
+  }
+}
