@@ -63,6 +63,8 @@ first();                 // Creates new exec. context
 - Scope chain.
 - "This" variable/keyword.
 
+![Execution context object](https://github.com/abfarhan/js-ref/blob/master/js-doc/assets/execution%20context%20object.png?raw=true)
+
 1.  Creation Phase <br>
     a) Creation of Variable Object (VO). <br>
     b) Creation of scope chain. <br>
@@ -134,7 +136,7 @@ It throws error beacuse during creation phase no property is created in VO.
 - **Each new function a scope** (the space/ environment in which the variables it defines are accessible).
 - **Lexical scoping** : a function that is lexically within another function gets access to the scope of the outer function.
 
-[scope image]()
+![scope image](https://github.com/abfarhan/js-ref/blob/master/js-doc/assets/scope.PNG?raw=true)
 
 ## **This variable/ keyword**
 
