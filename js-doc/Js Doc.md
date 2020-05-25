@@ -1,5 +1,9 @@
 # **Js Doc**
 
+<center>⚠️ Work In Progress ⚠️</center>
+
+---
+
 The browser has a javascript engine that exicutes js code. (chrome - v8, firefox – SpiderMonkey).
 Inside js engine there is a parser.
 
@@ -17,8 +21,6 @@ Inside js engine there is a parser.
 ## **Parser**
 
 **Parser**: Reads the code line by line and check if the syntax is correct. If the code is correct then the parser produces a datastruture known as Abstract syntax tree, which is then translated into the machine langulage.
-
----
 
 ## **Execution Context**
 
@@ -185,3 +187,72 @@ mike.calculateAge();                        // mike object
 In the above example mike.calculateAge() the 'this' keyword points to mike object because the value to the 'this' keyword assigned only when the method is called.
 
 ## **Inheritance**
+
+Javascript is a prototype based language, and inheritance works by using prototype. <br>
+Each and every javascript object has a prototype property which makes inheritance possible.
+
+![Prototype chain](https://github.com/abfarhan/js-ref/blob/master/js-doc/assets/prototype%20chain.PNG?raw=true)
+
+- The prototype property of an object is where we put methods and properties that we want other object to inherit.
+- The constructor's prototype property is not the property of constructor itself, it's the property of all the instance that are created through it.
+- When a certain method ( or property ) is called, the search starts in the object itself and if it cannot be found, the search moves on to the object's property. This continues until the method is found. This is called prototype chain.
+
+### Creating object using function constructor
+
+```
+var Person = function(name, yob, job) {
+    this.name = name;
+    this.yob = yob;
+    this.job = job;
+}
+
+var john = new Person('John', 1995, 'developer');
+```
+
+Here when we use `new` keyword an empty object is created. And then the `Person` function is called. Calling a function creates a new execution context which also has `this` keyword. <br>
+In regular function `this` keyword points to the global object but here the `new` keyword created an empty object. So the `this` keyword points to the empty object.
+
+```
+Person.prototype.calculateAge = function() {
+    console.log(2020 - this.yob);
+}
+
+john.calculateAge();
+```
+
+Here we are not writing the function inside the constructor but we are writing it in the `Prototype` property so that the other object which uses the instance of the `Person` can inherit the function.
+
+### Creating object using Object.create
+
+Here we first define an object that act as a prototype and then create new object based in that prototype.
+
+```
+const personProto = {
+  calculateAge: function () {
+    console.log(2020 - this.yob);
+  },
+};
+
+const john = Object.create(personProto);
+
+john.name = 'john';
+john.yob = 1995;
+john.job = 'developer';
+
+
+const jane = Object.create(personProto, {
+  name: { value: 'jane' },
+  yob: { value: 2000 },
+  job: { value: 'designer' },
+});
+
+```
+
+Here first we are creating a prototype onject personProto and adds the method. <br>
+Then we create the object using Onject.create() and pass the prototype.
+
+> In john object we are creating the propertiees for john using `dot (.)` operator.
+
+> In jane we are creating the properties for jane as a second argument of Onject.create() method.
+
+The difference is Object.create inherit directly from what we pass as a first argument. In function constructor the newly created object inherit from the constructor's prototype property
