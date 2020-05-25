@@ -4,7 +4,7 @@
 
 ---
 
-The browser has a javascript engine that exicutes js code. (chrome - v8, firefox – SpiderMonkey).
+The browser has a javascript engine that executes js code. (chrome - v8, firefox – SpiderMonkey).
 Inside js engine there is a parser.
 
 ### **Topics**:<br>
@@ -191,7 +191,7 @@ In the above example mike.calculateAge() the 'this' keyword points to mike objec
 Javascript is a prototype based language, and inheritance works by using prototype. <br>
 Each and every javascript object has a prototype property which makes inheritance possible.
 
-![Prototype chain](https://github.com/abfarhan/js-ref/blob/master/js-doc/assets/prototype%20chain.PNG?raw=true)
+![Prototype chain](https://github.com/abfarhan/js-ref/blob/master/js-doc/assets/prototype%20chain.png?raw=true)
 
 - The prototype property of an object is where we put methods and properties that we want other object to inherit.
 - The constructor's prototype property is not the property of constructor itself, it's the property of all the instance that are created through it.
