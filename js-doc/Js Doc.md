@@ -5,7 +5,7 @@
 ---
 
 The browser has a javascript engine that executes js code. (chrome - v8, firefox – SpiderMonkey).
-Inside js engine there is a parser.
+Inside js engine there is a parser. Firstly, raw JavaScript file goes into the Parser.
 
 ### **Topics**:<br>
 
@@ -15,8 +15,19 @@ Inside js engine there is a parser.
 - [Hoisting](#hoisting)
 - [Scope and Scope Chain](#scoping)
 - [Inheritance](#inheritance)
+- [Creating object using function constructor](#creating-object-using-function-constructor)
+- [Creating object using Object.create](#creating-object-using-object.create)
+- [Callback Functions](#callback-functions)
+- [Immediately Invoked Function Expression (IIFE)](<#immediately-invoked-function-expression-(iife)>)
+- [Closures](#closures)
+- ⚠️ Work In Progress ⚠️
+- ⚠️ Work In Progress ⚠️
+- ⚠️ Work In Progress ⚠️
+<!--
 - [](#)
 - [](#)
+- [](#)
+  -->
 
 ## **Parser**
 
@@ -144,9 +155,9 @@ It throws error beacuse during creation phase no property is created in VO.
 
 It is a variable that each and every execution context gets.
 
-- In regular function call the 'this' keyword points at the global object ( the window object in the browser).
-- In method call 'this' keyword points to the object that is calling the method.
-- The 'this' keyword is not assigned a value until a function where it is defined is called. ( the value is assigned only when the object calls the method).
+- In regular function call the `this` keyword points at the global object ( the window object in the browser).
+- In method call `this` keyword points to the object that is calling the method.
+- The `this` keyword is not assigned a value until a function where it is defined is called. ( the value is assigned only when the object calls the method).
 
 ```
 console.log(this);
@@ -171,7 +182,7 @@ john.calculateAge();
 
 In the above example in case of calculateAge it is a method so it points to the john object. <br>
 
-But in case of innerFunction() eventhough it is present inside a method it is still a regular function. So in regular function 'this' keyword always points to the window object.
+But in case of innerFunction() eventhough it is present inside a method it is still a regular function. So in regular function `this` keyword always points to the window object.
 
 ```
 var mike = {
@@ -184,7 +195,7 @@ mike.calculateAge = john.calculateAge;
 mike.calculateAge();                        // mike object
 ```
 
-In the above example mike.calculateAge() the 'this' keyword points to mike object because the value to the 'this' keyword assigned only when the method is called.
+In the above example mike.calculateAge() the `this` keyword points to mike object because the value to the 'this' keyword assigned only when the method is called.
 
 ## **Inheritance**
 
@@ -197,7 +208,7 @@ Each and every javascript object has a prototype property which makes inheritanc
 - The constructor's prototype property is not the property of constructor itself, it's the property of all the instance that are created through it.
 - When a certain method ( or property ) is called, the search starts in the object itself and if it cannot be found, the search moves on to the object's property. This continues until the method is found. This is called prototype chain.
 
-### Creating object using function constructor
+## **Creating object using function constructor**
 
 ```
 var Person = function(name, yob, job) {
@@ -222,7 +233,7 @@ john.calculateAge();
 
 Here we are not writing the function inside the constructor but we are writing it in the `Prototype` property so that the other object which uses the instance of the `Person` can inherit the function.
 
-### Creating object using Object.create
+## **Creating object using Object.create**
 
 Here we first define an object that act as a prototype and then create new object based in that prototype.
 
@@ -248,11 +259,175 @@ const jane = Object.create(personProto, {
 
 ```
 
-Here first we are creating a prototype onject personProto and adds the method. <br>
-Then we create the object using Onject.create() and pass the prototype.
+Here first we are creating a prototype object personProto and adds the method. <br>
+Then we create the object using Object.create() and pass the prototype.
 
 > In john object we are creating the propertiees for john using `dot (.)` operator.
 
 > In jane we are creating the properties for jane as a second argument of Onject.create() method.
 
-The difference is Object.create inherit directly from what we pass as a first argument. In function constructor the newly created object inherit from the constructor's prototype property
+The difference is Object.create inherit directly from what we pass as a first argument. In function constructor the newly created object inherit from the constructor's prototype property.
+
+## **Callback Functions**
+
+A callback function, also known as higher-order function is a function that is passed to another function as an argument, and the callback function is called later inside that function.
+
+Example 1:
+
+```
+function greeting(name) {
+  alert('Hello ' + name);
+}
+
+function processUserInput(callback) {
+  var name = prompt('Please enter your name.');
+  callback(name);
+}
+
+processUserInput(greeting);
+```
+
+Example 2:
+
+```
+const years = [1990, 1995, 2008, 1998, 2001];
+
+function arrayCalc(arr, fn) {
+  const arrRes = [];
+  arr.forEach((el) => {
+    arrRes.push(fn(el));
+  });
+  return arrRes;
+}
+
+function calculateAge(el) {
+  return 2020 - el;
+}
+
+function isFullAge(el) {
+  return el >= 18;
+}
+
+const ages = arrayCalc(years, calculateAge);
+const fullAge = arrayCalc(ages, isFullAge);
+
+console.log(ages);
+console.log(fullAge);
+```
+
+Here we are passing calculateAge and isFullAge as an argument to the arrayCalc function.
+
+## **First-Class Objects**
+
+In javascript, functions are first-class objects. That is, functions are of type object and they can be used in a first-class manner like any other object (string, array, number, etc). Since they are infact object themselves, they can be stored in a variable, passed as an argument to functions ([Callback function](#callback-functions)) , created within functions and returned from a function.
+
+### Returning a function from a function
+
+```
+function greetingFn(greeting) {
+  if (greeting === 'Hello') {
+    return function (name) {
+      console.log('Hello ' + name);
+    };
+  } else if (greeting === 'Hi') {
+    return function (name) {
+      console.log('Hi ' + name);
+    };
+  } else {
+    return function (name) {
+      console.log('Hey ' + name);
+    };
+  }
+}
+```
+
+> Using variables
+
+```
+const helloGreeting = greetingFn('Hello');
+const hiGreeting = greetingFn('Hi');
+
+helloGreeting('John');                     // Hello John
+hiGreeting('Mark');                        // Hi Mark
+```
+
+> Using double parentheses (without variable)
+
+```
+greetingFn('Hello')('Jane');               // Hello Jane
+greetingFn('Hola')('Kevin');               // Hey Kevin
+```
+
+## **Immediately Invoked Function Expression (IIFE)**
+
+IIFE is a function that runs as soon as it is defined.
+
+```
+(function () {
+  var n = 'John';
+  console.log(n);         // John
+})();
+
+console.log(n);           // Uncaught ReferenceError: n is not defined
+```
+
+1. The first is the anonymous function with lexical scope enclosed within the `Grouping Operator ()`. This prevents accessing variables within the IIFE idiom as well as polluting the global scope.
+2. The second part creates the immediately invoked function expression `()` through which the JavaScript engine will directly interpret the function and invokes the function immediately.
+
+## **Closures**
+
+An inner function always have access to the variables and parameters of it's outer function even after the outer function has returned.
+
+```
+function retirement(retirementAge) {
+  const a = ' years left until retirement';
+  return function (yob) {
+    const age = 2020 - yob;
+    const yearsLeftMessage = retirementAge - age + a;
+    console.log(yearsLeftMessage);
+  };
+}
+
+const retirementUS = retirement(66);
+const retirementGermany = retirement(65);
+const retirementIceland = retirement(65);
+
+retirementUS(1995);
+retirementGermany(1985);
+retirementIceland(1980);
+```
+
+Here `retirement()` function creates a new execution context. This execution context has an object which stores variables, scope chain & `this` variable/keyword. A scope chain is like a pointer to all VO that the function has access to. ie, `retirementAge` argument and variable `a`.
+So when the function returns, the execution context is also removed. But the VO is not removed, it is still in the memory and can be accessed. So when we call the inner function `retirementUS`, since the inner function is written lexically in the `retirement()` the inner function gets access to the outer function scope. Since the VO remains there even after the execution context of the `retirement()` is removed, the scope chain works and gets access to the variables even after the function has completed execution. This is how the closure works.
+
+Another quick example:
+
+```
+function greetingFn(greeting) {
+  const a = ', how are you?';
+  return function (name) {
+    if (greeting === 'Hello') {
+      console.log('Hello ' + name + a);
+    } else if (greeting === 'Hi') {
+      console.log('Hi ' + name + a);
+    } else {
+      console.log('Hey ' + name + a);
+    }
+  };
+}
+
+const helloGreeting = greetingFn('Hello');
+const hiGreeting = greetingFn('Hi');
+
+helloGreeting('John');
+hiGreeting('Mark');
+
+greetingFn('Hello')('Jane');
+greetingFn('Hola')('Kevin');
+```
+
+---
+
+<center>⚠️ Work In Progress ⚠️</center>
+
+---
