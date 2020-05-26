@@ -1,6 +1,6 @@
 # **Js Doc**
 
-![Js documentation](https://github.com/abfarhan/js-ref/blob/master/js-doc/assets/js%20doc.png?raw=true)
+![Js documentation](https://github.com/abfarhan/js-ref/blob/master/js-doc/assets/js%20doc.PNG?raw=true)
 
 <center>⚠️ Work In Progress ⚠️</center>
 
@@ -44,29 +44,29 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - Each time we call a function it gets it's own execution context.
 
 ```javascript
-var name = 'john'; // Stored in global exec. context
+var name = 'john';        // Stored in global exec. context
 
 function first() {
-  // Stored in global exec. context
-  var a = 'Hello'; // Stored in exec. context of first()
-  second(); // Creates a new exec. context
-  var x = a + name; // Stored in exec. context of first()
+                          // Stored in global exec. context
+  var a = 'Hello';        // Stored in exec. context of first()
+  second();               // Creates a new exec. context
+  var x = a + name;       // Stored in exec. context of first()
 }
 
 function second() {
-  // Stored in global exec. context
-  var b = 'Hi'; // Stored in exec. context of second()
-  third(); // Creates a new exec. context
-  var y = b + name; // Stored in exec. context of second()
+                          // Stored in global exec. context
+  var b = 'Hi';           // Stored in exec. context of second()
+  third();                // Creates a new exec. context
+  var y = b + name;       // Stored in exec. context of second()
 }
 
 function third() {
-  // Stored in global exec. context
-  var c = 'Hey'; // Stored in exec. context of third()
-  var z = c + name; // Stored in exec. context of third()
+                          // Stored in global exec. context
+  var c = 'Hey';          // Stored in exec. context of third()
+  var z = c + name;       // Stored in exec. context of third()
 }
 
-first(); // Creates new exec. context
+first();                  // Creates new exec. context
 ```
 
 1. When we call first() fn. a new exec. context is being created and it becomes active context. The variables declared in that context will become attached to that context.
@@ -96,13 +96,11 @@ var age = 25;
 
 function foo() {
   var age = 65;
-  console.log(age); // 65. Gets the age from the
-  // exec. context of foo() function
+  console.log(age);       // 65. Gets the age from the exec. context of foo() function
 }
 
 foo();
-consolelog(age); // 25 gets the age from the
-// global exec. context
+consolelog(age);          // 25 gets the age from the global exec. context
 ```
 
 ## **Variable Object**
@@ -171,11 +169,11 @@ var john = {
   name: 'john',
   yob: 1995,
   calculateAge: function () {
-    console.log(this); // john object
+    console.log(this);              // john object
     console.log(2020 - this.yob);
 
     function innerFunction() {
-      console.log(this); // window object
+      console.log(this);            // window object
     }
 
     innerFunction();
@@ -197,7 +195,7 @@ var mike = {
 
 mike.calculateAge = john.calculateAge;
 
-mike.calculateAge(); // mike object
+mike.calculateAge();               // mike object
 ```
 
 In the above example mike.calculateAge() the `this` keyword points to mike object because the value to the 'this' keyword assigned only when the method is called.
@@ -350,15 +348,15 @@ function greetingFn(greeting) {
 const helloGreeting = greetingFn('Hello');
 const hiGreeting = greetingFn('Hi');
 
-helloGreeting('John'); // Hello John
-hiGreeting('Mark'); // Hi Mark
+helloGreeting('John');                  // Hello John
+hiGreeting('Mark');                     // Hi Mark
 ```
 
 > Using double parentheses (without variable)
 
 ```javascript
-greetingFn('Hello')('Jane'); // Hello Jane
-greetingFn('Hola')('Kevin'); // Hey Kevin
+greetingFn('Hello')('Jane');            // Hello Jane
+greetingFn('Hola')('Kevin');            // Hey Kevin
 ```
 
 ## **Immediately Invoked Function Expression (IIFE)**
@@ -368,10 +366,10 @@ IIFE is a function that runs as soon as it is defined.
 ```javascript
 (function () {
   var n = 'John';
-  console.log(n); // John
+  console.log(n);                       // John
 })();
 
-console.log(n); // Uncaught ReferenceError: n is not defined
+console.log(n);                         // Uncaught ReferenceError: n is not defined
 ```
 
 1. The first is the anonymous function with lexical scope enclosed within the `Grouping Operator ()`. This prevents accessing variables within the IIFE idiom as well as polluting the global scope.
