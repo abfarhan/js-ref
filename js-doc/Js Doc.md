@@ -1,5 +1,7 @@
 # **Js Doc**
 
+![Js documentation](https://github.com/abfarhan/js-ref/blob/master/js-doc/assets/js%20doc.png?raw=true)
+
 <center>⚠️ Work In Progress ⚠️</center>
 
 ---
@@ -41,27 +43,30 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - The global execution context are for the variables and function that are not inside any function.
 - Each time we call a function it gets it's own execution context.
 
-```
-var name = 'john';       // Stored in global exec. context
+```javascript
+var name = 'john'; // Stored in global exec. context
 
-function first() {       // Stored in global exec. context
-    var a = 'Hello';     // Stored in exec. context of first()
-    second();            // Creates a new exec. context
-    var x = a + name;    // Stored in exec. context of first()
+function first() {
+  // Stored in global exec. context
+  var a = 'Hello'; // Stored in exec. context of first()
+  second(); // Creates a new exec. context
+  var x = a + name; // Stored in exec. context of first()
 }
 
-function second() {      // Stored in global exec. context
-    var b = 'Hi';        // Stored in exec. context of second()
-    third();             // Creates a new exec. context
-    var y = b + name;    // Stored in exec. context of second()
+function second() {
+  // Stored in global exec. context
+  var b = 'Hi'; // Stored in exec. context of second()
+  third(); // Creates a new exec. context
+  var y = b + name; // Stored in exec. context of second()
 }
 
-function third() {       // Stored in global exec. context
-    var c = 'Hey';       // Stored in exec. context of third()
-    var z = c + name;    // Stored in exec. context of third()
+function third() {
+  // Stored in global exec. context
+  var c = 'Hey'; // Stored in exec. context of third()
+  var z = c + name; // Stored in exec. context of third()
 }
 
-first();                 // Creates new exec. context
+first(); // Creates new exec. context
 ```
 
 1. When we call first() fn. a new exec. context is being created and it becomes active context. The variables declared in that context will become attached to that context.
@@ -86,18 +91,18 @@ first();                 // Creates new exec. context
 2.  Execution Phase <br>
     The code of the function that generated the current execution context is ran line by line.
 
-```
+```javascript
 var age = 25;
 
 function foo() {
-    var age  = 65;
-    console.log(age);  // 65. Gets the age from the
-                       // exec. context of foo() function
+  var age = 65;
+  console.log(age); // 65. Gets the age from the
+  // exec. context of foo() function
 }
 
 foo();
-consolelog(age);       // 25 gets the age from the
-                       // global exec. context
+consolelog(age); // 25 gets the age from the
+// global exec. context
 ```
 
 ## **Variable Object**
@@ -112,11 +117,11 @@ consolelog(age);       // 25 gets the age from the
 
 The functions and variables are hoisted in js, which means they are available before execution phase starts.
 
-```
+```javascript
 calculateAge(1995);
 
 function calculateAge(year) {
- console.log(2020 - year);
+  console.log(2020 - year);
 }
 ```
 
@@ -128,8 +133,8 @@ In the creation phase of execution context the functionn declaration calculateAg
 
 ### Hoisting with Variables
 
-```
-console.log(age);       // Undefined
+```javascript
+console.log(age); // Undefined
 var age = 25;
 ```
 
@@ -137,8 +142,8 @@ During creation phase a property is created for each variable in VO and set it t
 
 But if we are using a variable without declaring then it will throw an error.
 
-```
-console.log(newAge);    // Error
+```javascript
+console.log(newAge); // Error
 ```
 
 It throws error beacuse during creation phase no property is created in VO.
@@ -159,23 +164,23 @@ It is a variable that each and every execution context gets.
 - In method call `this` keyword points to the object that is calling the method.
 - The `this` keyword is not assigned a value until a function where it is defined is called. ( the value is assigned only when the object calls the method).
 
-```
+```javascript
 console.log(this);
 
 var john = {
-   name: 'john',
-   yob: 1995,
-   calculateAge: function() {
-       console.log(this);                  // john object
-       console.log(2020 - this.yob);
+  name: 'john',
+  yob: 1995,
+  calculateAge: function () {
+    console.log(this); // john object
+    console.log(2020 - this.yob);
 
-       function innerFunction() {
-           console.log(this);              // window object
-       }
+    function innerFunction() {
+      console.log(this); // window object
+    }
 
-       innerFunction();
-   }
-}
+    innerFunction();
+  },
+};
 
 john.calculateAge();
 ```
@@ -184,15 +189,15 @@ In the above example in case of calculateAge it is a method so it points to the 
 
 But in case of innerFunction() eventhough it is present inside a method it is still a regular function. So in regular function `this` keyword always points to the window object.
 
-```
+```javascript
 var mike = {
-    name: 'mike;,
-    yob: 1996
-}
+  name: 'mike',
+  yob: 1996,
+};
 
 mike.calculateAge = john.calculateAge;
 
-mike.calculateAge();                        // mike object
+mike.calculateAge(); // mike object
 ```
 
 In the above example mike.calculateAge() the `this` keyword points to mike object because the value to the 'this' keyword assigned only when the method is called.
@@ -210,12 +215,12 @@ Each and every javascript object has a prototype property which makes inheritanc
 
 ## **Creating object using function constructor**
 
-```
-var Person = function(name, yob, job) {
-    this.name = name;
-    this.yob = yob;
-    this.job = job;
-}
+```javascript
+var Person = function (name, yob, job) {
+  this.name = name;
+  this.yob = yob;
+  this.job = job;
+};
 
 var john = new Person('John', 1995, 'developer');
 ```
@@ -223,10 +228,10 @@ var john = new Person('John', 1995, 'developer');
 Here when we use `new` keyword an empty object is created. And then the `Person` function is called. Calling a function creates a new execution context which also has `this` keyword. <br>
 In regular function `this` keyword points to the global object but here the `new` keyword created an empty object. So the `this` keyword points to the empty object.
 
-```
-Person.prototype.calculateAge = function() {
-    console.log(2020 - this.yob);
-}
+```javascript
+Person.prototype.calculateAge = function () {
+  console.log(2020 - this.yob);
+};
 
 john.calculateAge();
 ```
@@ -237,7 +242,7 @@ Here we are not writing the function inside the constructor but we are writing i
 
 Here we first define an object that act as a prototype and then create new object based in that prototype.
 
-```
+```javascript
 const personProto = {
   calculateAge: function () {
     console.log(2020 - this.yob);
@@ -250,13 +255,11 @@ john.name = 'john';
 john.yob = 1995;
 john.job = 'developer';
 
-
 const jane = Object.create(personProto, {
   name: { value: 'jane' },
   yob: { value: 2000 },
   job: { value: 'designer' },
 });
-
 ```
 
 Here first we are creating a prototype object personProto and adds the method. <br>
@@ -274,7 +277,7 @@ A callback function, also known as higher-order function is a function that is p
 
 Example 1:
 
-```
+```javascript
 function greeting(name) {
   alert('Hello ' + name);
 }
@@ -289,7 +292,7 @@ processUserInput(greeting);
 
 Example 2:
 
-```
+```javascript
 const years = [1990, 1995, 2008, 1998, 2001];
 
 function arrayCalc(arr, fn) {
@@ -323,7 +326,7 @@ In javascript, functions are first-class objects. That is, functions are of type
 
 ### Returning a function from a function
 
-```
+```javascript
 function greetingFn(greeting) {
   if (greeting === 'Hello') {
     return function (name) {
@@ -343,32 +346,32 @@ function greetingFn(greeting) {
 
 > Using variables
 
-```
+```javascript
 const helloGreeting = greetingFn('Hello');
 const hiGreeting = greetingFn('Hi');
 
-helloGreeting('John');                     // Hello John
-hiGreeting('Mark');                        // Hi Mark
+helloGreeting('John'); // Hello John
+hiGreeting('Mark'); // Hi Mark
 ```
 
 > Using double parentheses (without variable)
 
-```
-greetingFn('Hello')('Jane');               // Hello Jane
-greetingFn('Hola')('Kevin');               // Hey Kevin
+```javascript
+greetingFn('Hello')('Jane'); // Hello Jane
+greetingFn('Hola')('Kevin'); // Hey Kevin
 ```
 
 ## **Immediately Invoked Function Expression (IIFE)**
 
 IIFE is a function that runs as soon as it is defined.
 
-```
+```javascript
 (function () {
   var n = 'John';
-  console.log(n);         // John
+  console.log(n); // John
 })();
 
-console.log(n);           // Uncaught ReferenceError: n is not defined
+console.log(n); // Uncaught ReferenceError: n is not defined
 ```
 
 1. The first is the anonymous function with lexical scope enclosed within the `Grouping Operator ()`. This prevents accessing variables within the IIFE idiom as well as polluting the global scope.
@@ -378,7 +381,7 @@ console.log(n);           // Uncaught ReferenceError: n is not defined
 
 An inner function always have access to the variables and parameters of it's outer function even after the outer function has returned.
 
-```
+```javascript
 function retirement(retirementAge) {
   const a = ' years left until retirement';
   return function (yob) {
@@ -402,7 +405,7 @@ So when the function returns, the execution context is also removed. But the VO 
 
 Another quick example:
 
-```
+```javascript
 function greetingFn(greeting) {
   const a = ', how are you?';
   return function (name) {
