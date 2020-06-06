@@ -20,16 +20,15 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Creating object using function constructor](#creating-object-using-function-constructor)
 - [Creating object using Object.create](#creating-object-using-object.create)
 - [Callback Functions](#callback-functions)
-- [Immediately Invoked Function Expression (IIFE)](<#immediately-invoked-function-expression-(iife)>)
+- [Immediately Invoked Function Expression (IIFE)](#immediately-invoked-function-expression)
 - [Closures](#closures)
+- [Call, Bind & Apply methods](#call-bind-&-apply-methods)
+- [Let & Const](#let-&-const)
+- [Blocks and IIFE](#blocks-and-IIFE)
+- [Arrow Function](#arrow-function)
+- [Destructuring](#destructuring)
 - ⚠️ Work In Progress ⚠️
-- ⚠️ Work In Progress ⚠️
-- ⚠️ Work In Progress ⚠️
-<!--
-- [](#)
-- [](#)
-- [](#)
-  -->
+
 
 ## **Parser**
 
@@ -359,7 +358,7 @@ greetingFn('Hello')('Jane');            // Hello Jane
 greetingFn('Hola')('Kevin');            // Hey Kevin
 ```
 
-## **Immediately Invoked Function Expression (IIFE)**
+## **Immediately Invoked Function Expression**
 
 IIFE is a function that runs as soon as it is defined.
 
@@ -425,6 +424,286 @@ hiGreeting('Mark');
 
 greetingFn('Hello')('Jane');
 greetingFn('Hola')('Kevin');
+```
+
+## **Call, Bind & Apply methods**
+
+### **Call**
+
+Call method allow us to call a function and set the `this` keyword manually.
+
+``` javascript
+const john = {
+    name: 'John',
+    age: 26,
+    job: 'teacher',
+    presentation: function (style, timeOfDay) {
+        if (style === 'formal') {
+            console.log('Good ' + timeOfDay + ' ladies and gentlemen ! My name is ' + this.name + ' i\'m ' + this.age + ' years old. And i\'m a ' + this.job);
+        }
+        else if (style === 'friendly') {
+            console.log('Hey what\'s up my name is ' + this.name + ', i\'m ' + this.age + ' years old, i\m a ' + this.job + ' and have a wonderful ' + timeOfDay);
+        }
+    }
+}
+
+john.presentation('formal', 'morning');
+john.presentation('friendly', 'evening');
+
+const emily = {
+    name: 'Emily',
+    age: 24,
+    job: 'developer'
+}
+
+john.presentation.call(emily, 'formal', 'afternoon');
+```
+
+Here we are calling john object's presentation method for emily object. <br>
+
+While using `call` method we need to pass 1st argument as `this` keyword. So, here we are passing emily, so the value of `this` keyword in the presentation method is not john but emily.
+
+### **Apply**
+
+The apply method works almost similar to call method but the only difference is apply method accepts the argument as an array & `this` keyword.
+
+⚠️ Work In Progress ⚠️
+
+### **Bind**
+
+⚠️ Work In Progress ⚠️
+
+## **Let & Const** 
+
+- Variable declared with let & const are block scoped.
+
+> let is accessible only in the block where it is defined.
+``` javascript
+function test(param) {
+    if (param === true) {
+        let n = 'john';
+        console.log(n);           // john
+    }
+    console.log(n);               // Uncaught ReferenceError: n is not defined
+}
+
+test(true);
+```
+
+- Variable declared with var keyword is function scoped.
+
+``` javascript
+function test(param) {
+    if (param === true) {
+        var n = 'john';
+        console.log(n);          // john
+    }
+    console.log(n);              // john
+}
+
+test(true);
+```
+
+- Let is accessible only after it is declared
+
+``` javascript
+function test(param) {
+    if (param === true) {
+        console.log(n);         // Uncaught ReferenceError: Cannot access 'n' before initialization
+        let n = 'john';
+    }
+}
+
+test(true);
+```
+
+- var is hoisted and set to undefined
+
+``` javascript
+function test(param) {
+    if (param === true) {
+        console.log(n);          // Undefined
+        var n = 'john';
+    }
+}
+
+test(true);
+```
+
+## **Blocks and IIFE**
+
+``` javascript
+{
+    const a = 5;
+    let b = 6
+}
+```
+
+Here `let & const` are block scoped so we can create a block using `{}`
+and write the variables inside, so those variables are not accessile from outside the block. In this way we can use `let & const` as IIFE.
+
+## **Arrow Function**
+
+**MDN** - An arrow function expression is a syntactically compact alternative to a regular function expression, although without its own bindings to the `this`, `arguments`, `super`, or `new.target` keywords. Arrow function expressions are ill suited as methods, and they cannot be used as constructors.
+
+``` javascript
+const years = [1990, 1995, 2000, 2005];
+
+let age = years.map((el, index) => {
+    const now = new Date().getFullYear();
+    const age = now - el;
+    return `Age element ${index} : ${age}`;
+});
+
+console.log(age);
+```
+
+- Parentheses are optional when there's only one parameter name
+
+- When there is only one statement and it is return statement, then we can remove return keyword.
+
+- When there is multiple statement then we need write those statement in `{}`. If there is any return statement in that multiple statement then we need to specify the return keyword. 
+
+### **Lexical this keyword**
+
+An arrow function does not have its own `this`. Arrow function shares the surrounding `this` keyword, which means, unlike normal function arrow function does not have `this` keyword, they simply use the `this` keyword of the function they are written in.
+
+**MDN** :- An arrow function does not have its own this. The this value of the enclosing lexical scope is used; arrow functions follow the normal variable lookup rules. So while searching for this which is not present in the current scope, an arrow function ends up finding the this from its enclosing scope.
+
+``` html
+<button class="green">Click Me</button>
+```
+
+``` javascript
+const button = {
+    color: 'green',
+    position: 1,
+    clickMe: function () {
+        document.querySelector('.green').addEventListener('click', () => {
+            let string = `Button number ${this.position} and it is ${this.color} color`;
+            alert(string);   // Button number 1 and it is green color
+        });
+    }
+}
+
+button.clickMe();
+```
+
+> Here the arrow function uses the `this` keyword of the clickMe method. 
+
+If w uses normal function instead of arrow function `this.position` and `this.color` will give `undefined` because it points to the global object.
+
+``` javascript
+const button = {
+    color: 'green',
+    position: 1,
+    clickMe: function () {
+        document.querySelector('.green').addEventListener('click', function () {
+            let string = `Button number ${this.position} and it is ${this.color} color`;
+            alert(string);    // Button number undefined and it is undefined color
+        });
+    }
+}
+
+button.clickMe();
+```
+
+Another example :- with function constructor <br>
+
+Using arrow function.
+``` javascript
+
+function Person(fname) {
+    this.fname = fname;
+}
+
+Person.prototype.myFriends = function (friends) {
+    let arr = friends.map((el) => {
+        return `${this.fname} is friends with ${el}`
+    });
+    console.log(arr);
+}
+let friends = ['Bob', 'Mark', 'Mary'];
+new Person('John').myFriends(friends);
+```
+> Output :- <br>
+> John is friends with Bob <br>
+> John is friends with Mark <br>
+> John is friends with Mary <br>
+
+Here `this` keyword of arrow function inside `map` method points to the `this` keyword of `myFriends` method of Person object. <br>
+
+Using normal function.
+
+``` javascript
+function Person(fname) {
+    this.fname = fname;
+}
+
+Person.prototype.myFriends = function (friends) {
+    let arr = friends.map(function (el) {
+        return `${this.fname} is friends with ${el}`
+    });
+    console.log(arr);
+}
+let friends = ['Bob', 'Mark', 'Mary'];
+new Person('John').myFriends(friends);
+```
+
+> Output :- <br>
+> undefined is friends with Bob <br>
+> undefined is friends with Mark <br>
+> undefined is friends with Mary <br>
+
+Here `this` keyword of normal function inside `map` method points to the `this` keyword of global object. <br>
+
+## **Destructuring**
+
+Destructuring helps to unpack values from arrays, or properties from objects, into distinct variables.
+
+``` javascript
+const [name, job] = ['John', 'Developer'];
+
+console.log(name);      // John
+console.log(job);       // Developer
+```
+
+``` javascript
+const obj = {
+    fName: 'John',
+    lName: 'Doe'
+}
+
+const { fName, lName } = obj;
+
+console.log(fName);         // John
+console.log(lName);         // Doe
+```
+
+``` javascript
+const obj = {
+    fName: 'John',
+    lName: 'Doe'
+}
+
+const { fName: firstName, lName: lastName } = obj;
+
+console.log(firstName);     // John
+console.log(lastName);      // Doe
+```
+
+### **Returning multiple values from a function using destructuring**
+
+``` javascript
+function retirementAgeCalc(year) {
+    const age = new Date().getFullYear() - year;
+    return [age, 65 - age];
+}
+
+const [age, retirement] = retirementAgeCalc(1995);
+
+console.log(age);
+console.log(retirement);
 ```
 
 ---
