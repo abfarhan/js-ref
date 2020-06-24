@@ -469,11 +469,51 @@ While using `call` method we need to pass 1st argument as `this` keyword. So, he
 
 The apply method works almost similar to call method but the only difference is apply method accepts the argument as an array & `this` keyword.
 
-⚠️ Work In Progress ⚠️
 
 ### **Bind**
 
-⚠️ Work In Progress ⚠️
+The `bind()` method also allows us to set `this` keywork explicitly, the difference is, bind doesn't immediately call the function instead it generates the copy of the function, so that we can store it.
+
+**MDN :-** The `bind()` method creates a new function that, when called, has its own `this` keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
+
+
+```javascript
+const john = {
+    name: 'John',
+    age: 26,
+    job: 'teacher',
+    presentation: function (style, timeOfDay) {
+        if (style === 'formal') {
+            console.log(`Good ${timeOfDay} ladies and gentlemen ! My name is ${this.name} I'm ${this.age} years old. And I'm a ${this.job}`);
+        }
+        else if (style === 'friendly') {
+            console.log(`Hey what's up my name is ${this.name}, I'm ${this.age} years old, I'm a ${this.job} and have a wonderful ${timeOfDay}`);
+        }
+    }
+}
+
+const johnFriendly = john.presentation.bind(john, 'friendly');
+
+johnFriendly('morning');
+johnFriendly('night');
+
+const emily = {
+    name: 'Emily',
+    age: 24,
+    job: 'developer'
+}
+
+const emilyFormal = john.presentation.bind(emily, 'formal');
+
+emilyFormal('afternoon');
+```
+
+So the bind allows us to preset some arguments.  
+Here, we preset style parameter of `presentation()` method, ie, argument `friendly`.
+
+**Currying :-** It is a technique in which we create a function based on another function but with some preset parameter.
+
+eg: We created `johnFriendly()` function based on `presentation()` method with preset argument `friendly`.
 
 ## **Let & Const** 
 
