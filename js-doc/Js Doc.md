@@ -27,6 +27,7 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Blocks and IIFE](#blocks-and-IIFE)
 - [Arrow Function](#arrow-function)
 - [Destructuring](#destructuring)
+- [Spread Operator](#spread-operator)
 - ⚠️ Work In Progress ⚠️
 
 
@@ -704,6 +705,35 @@ const [age, retirement] = retirementAgeCalc(1995);
 
 console.log(age);
 console.log(retirement);
+```
+
+## **Spread Operator**
+
+Spread operator is used to expand an iterable object into list of arguments.
+
+**MDN:-** Spread syntax allows an iterable such as an array expression or string to be expanded in places where zero or more arguments(for function calls) or elements (for array literals) are expected, or an object expression to be expanded in places where zero or more key value pairs(for object literals) are expected.
+
+Basically, spread operator takes an array and transform into single values.
+
+``` javascript
+function addAges(a, b, c, d) {
+  return a + b + c + d;
+}
+
+const sum1 = addAges(18, 19, 20, 21);
+console.log(sum1);
+
+const ages = [22, 23, 24, 25];
+const sum2 = addAges(...ages);  // using spread operator passing array of values as single values
+console.log(sum2);
+```
+
+``` javascript
+const group1 = ['John', 'Mark', 'Jared', 'Kevin'];
+const group2 = ['Jane', 'Bob', 'Bella', 'Mary'];
+
+const combGroup = [...group1, ...group2];  // using spread operator passing array of values as single values
+console.log(combGroup);
 ```
 
 ---
