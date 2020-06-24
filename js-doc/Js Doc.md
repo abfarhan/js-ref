@@ -18,16 +18,17 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Scope and Scope Chain](#scoping)
 - [Inheritance](#inheritance)
 - [Creating object using function constructor](#creating-object-using-function-constructor)
-- [Creating object using Object.create](#creating-object-using-object.create)
+- [Creating object using Object.create](#creating-object-using-objectcreate)
 - [Callback Functions](#callback-functions)
 - [Immediately Invoked Function Expression (IIFE)](#immediately-invoked-function-expression)
 - [Closures](#closures)
 - [Call, Bind & Apply methods](#call-bind--apply-methods)
-- [Let & Const](#let-&-const)
+- [Let & Const](#let--const)
 - [Blocks and IIFE](#blocks-and-IIFE)
 - [Arrow Function](#arrow-function)
 - [Destructuring](#destructuring)
 - [Spread Operator](#spread-operator)
+- [Rest Parameter](#rest-parameter)
 - ⚠️ Work In Progress ⚠️
 
 
@@ -734,6 +735,22 @@ const group2 = ['Jane', 'Bob', 'Bella', 'Mary'];
 
 const combGroup = [...group1, ...group2];  // using spread operator passing array of values as single values
 console.log(combGroup);
+```
+
+## **Rest Parameter**
+
+Rest parameter allows us to pass an arbitrary number of arguments into a function and use the arguments in that function.
+
+**MDN :-** The rest parameter syntax allows us to represent an indefinite number of arguments as an array.
+
+Basically, rest parameter receives couple of single values and transform it into an array.
+
+``` javascript
+function isFullAge(...years) {
+    years.forEach((current) => console.log((2020 - current) >= 18))
+}
+
+isFullAge(1990, 1995, 2000, 2005)
 ```
 
 ---
