@@ -22,7 +22,7 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Callback Functions](#callback-functions)
 - [Immediately Invoked Function Expression (IIFE)](#immediately-invoked-function-expression)
 - [Closures](#closures)
-- [Call, Bind & Apply methods](#call-bind-&-apply-methods)
+- [Call, Bind & Apply methods](#call-bind--apply-methods)
 - [Let & Const](#let-&-const)
 - [Blocks and IIFE](#blocks-and-IIFE)
 - [Arrow Function](#arrow-function)
