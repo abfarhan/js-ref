@@ -30,6 +30,8 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Destructuring](#destructuring)
 - [Spread Operator](#spread-operator)
 - [Rest Parameter](#rest-parameter)
+- [Array methods: every()](#array-methods-every)
+- [Array methods: some()](#array-methods-some)
 - ⚠️ Work In Progress ⚠️
 
 
@@ -807,6 +809,39 @@ function isFullAge(...years) {
 
 isFullAge(1990, 1995, 2000, 2005)
 ```
+
+## **Array methods: every()**
+
+The `every()` method checks whether all elements in the array pass the test implemented by the provided function, and if yes then it returns true.  
+If any of the element doesn't pass the test then it returns false.
+
+```javascript
+const isBelowThreshold = (currentValue) => currentValue < 40;
+
+const array1 = [1, 30, 39, 29, 10, 13];
+
+console.log(array1.every(isBelowThreshold));
+// expected output: true
+```
+
+[click for more](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
+
+## **Array methods: some()**
+
+The `some()` method determines whether at least one element of the array matches the given predicate. If at least one element matches then it returns true.  
+It only returns false if none of the array elements match the predicate:
+
+```javascript
+const array = [1, 2, 3, 4, 5];
+
+// checks whether an element is even
+const even = (element) => element % 2 === 0;
+
+console.log(array.some(even));
+// expected output: true
+```
+
+[click for more](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
 ---
 
