@@ -20,6 +20,7 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Creating object using function constructor](#creating-object-using-function-constructor)
 - [Creating object using Object.create](#creating-object-using-objectcreate)
 - [Callback Functions](#callback-functions)
+- [First-Class Objects](#first-class-objects)
 - [Immediately Invoked Function Expression (IIFE)](#immediately-invoked-function-expression)
 - [Closures](#closures)
 - [Call, Bind & Apply methods](#call-bind--apply-methods)
@@ -322,6 +323,20 @@ Here we are passing calculateAge and isFullAge as an argument to the arrayCalc f
 ## **First-Class Objects**
 
 In javascript, functions are first-class objects. That is, functions are of type object and they can be used in a first-class manner like any other object (string, array, number, etc). Since they are infact object themselves, they can be stored in a variable, passed as an argument to functions ([Callback function](#callback-functions)) , created within functions and returned from a function.
+
+### Assigning function to a variable
+
+If we pass a function to a variable  without parenthesis then it is like passing the entire function.
+
+```javascript
+var line = console.log;
+
+line();
+line('Hello and welcome!');
+```
+
+The benefit of passing a function to variable is that it can only be called after the function is executed, because the variables are hoisted and return undefined if it is not defined.  
+In normal function the function can be called before executing because of the hoisting.
 
 ### Returning a function from a function
 
