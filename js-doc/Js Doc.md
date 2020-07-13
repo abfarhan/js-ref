@@ -34,6 +34,7 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Array methods: some()](#array-methods-some)
 - [Class](#class)
 - [Class: static methods](#class-static-methods)
+- [Constructor and Super](#constructor-and-super)
 - ⚠️ Work In Progress ⚠️
 
 
@@ -911,6 +912,71 @@ console.log(Car.totalDoors(cx6, benz)); // Output: 8
 // Static methods are only accessible through the class but not with the class instances.
 ```
 
+### Constructor and Super
+
+```javascript
+class Car {
+  constructor(doors, engine, color) {
+    this.doors = doors;
+    this.engine = engine;
+    this.color = color;
+  }
+
+  carStat() {
+    return `This car has ${this.doors} doors, a ${this.engine} engine and the color is ${this.color}`;
+  }
+
+  static totalDoors(car1, car2) {
+    const doors1 = car1.doors;
+    const doors2 = car2.doors;
+
+    return doors1 + doors2;
+  }
+}
+
+class SUV extends Car {
+  constructor(doors, engine, color, brand, carStat) {
+    super(doors, engine, color, carStat);
+    this.brand = brand;
+    this.wheels = 4;
+    this.ac = true;
+  }
+
+  myBrand() {
+    return `This SUV is a ${this.brand}`;
+  }
+}
+
+const cx6 = new SUV(4, 'VS', 'grey', 'Land Rover');
+console.log(cx6);
+
+console.log(cx6.myBrand());
+console.log(cx6.carStat());
+```
+
+### Global variables
+
+```javascript
+const warrior_1 = 'Ninja'; // warrior_1 globally scoped
+
+let warrior_2; // warrior_2 globally scoped
+
+const screamWarrior = () => {
+  warrior_2 = 'Samurai'; // warrior_2 globally scoped
+
+  let warrior_3 = 'Viking'; // warrior_3 locally scoped
+
+  warrior_4 = 'Assassins'; // warrior_4 globally scoped, because it is not declared but defined, so it's same as declaring it globally.
+
+  console.log(warrior_1, warrior_2, warrior_3, warrior_4);
+};
+
+screamWarrior();
+
+console.log(warrior_1, warrior_2, warrior_3, warrior_4);  // Uncaught ReferenceError: warrior_3 is not defined
+```
+
+If we use `'use strict'` then warrior_4 will throw error because it is not declared.
 
 ---
 
