@@ -33,6 +33,7 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Array methods: every()](#array-methods-every)
 - [Array methods: some()](#array-methods-some)
 - [Class](#class)
+- [Class: static methods](#class-static-methods)
 - ⚠️ Work In Progress ⚠️
 
 
@@ -869,6 +870,48 @@ const cx6 = new Car(4, 'VS', 'grey');
 console.log(cx6);
 console.log(cx6.carStat());
 ```
+
+### Class: static methods
+
+Static methods are methods that aren't accessible through an instance of a class, but only available through the class itself. They are usually created for utility functions that don't relate to the instance of the class. 
+
+```javascript
+class Car {
+  constructor(doors, engine, color) {
+    this.doors = doors;
+    this.engine = engine;
+    this.color = color;
+  }
+
+  carStat() {
+    return `This car has ${this.doors} doors, a ${this.engine} engine and the color is ${this.color}`;
+  }
+
+  static totalDoors(car1, car2) {
+    const doors1 = car1.doors;
+    const doors2 = car2.doors;
+
+    return doors1 + doors2;
+  }
+}
+
+const cx6 = new Car(4, 'VS', 'grey');
+const benz = new Car(4, 'Vf', 'black');
+
+console.log(cx6);
+console.log(cx6.carStat());
+console.log(benz);
+console.log(benz.carStat());
+
+// console.log(cx6.totalDoors()); // Uncaught TypeError: cx6.totalDoors is not a function
+// console.log(benz.totalDoors()); // Uncaught TypeError: benz.totalDoors is not a function
+
+console.log(Car.totalDoors(cx6, benz)); // Output: 8
+
+// Static methods are only accessible through the class but not with the class instances.
+```
+
+
 ---
 
 <center>⚠️ Work In Progress ⚠️</center>
