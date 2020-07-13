@@ -35,6 +35,7 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Class](#class)
 - [Class: static methods](#class-static-methods)
 - [Constructor and Super](#constructor-and-super)
+- [Global variables](#global-variables)
 - ⚠️ Work In Progress ⚠️
 
 
@@ -152,6 +153,16 @@ console.log(newAge); // Error
 ```
 
 It throws error beacuse during creation phase no property is created in VO.
+
+The `let` and `const` hoist but cannot access them before the actual declaration is evaluated at runtime.
+
+```javascript
+warrior = 'Ninja';
+
+let warrior;
+
+console.log(warrior); // Uncaught ReferenceError: Cannot access 'warrior' before initialization
+```
 
 ## **Scoping**
 
