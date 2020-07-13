@@ -990,7 +990,7 @@ console.log(warrior_1, warrior_2, warrior_3, warrior_4);  // Uncaught ReferenceE
 
 If we use `'use strict'` then warrior_4 will throw error because it is not declared.
 
-### Local variable
+### Local variables
 
 Local variable's lifetime is from when the function is declared to when the function is completed. Therefore, when you have a variable inside of a function, when that function has completed its code, then that variable is no longer available. Also, since the local variable is deleted when the function is completed, many functions can have the same variable name. 
 
