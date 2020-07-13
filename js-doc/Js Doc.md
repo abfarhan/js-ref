@@ -32,6 +32,7 @@ Inside js engine there is a parser. Firstly, raw JavaScript file goes into the P
 - [Rest Parameter](#rest-parameter)
 - [Array methods: every()](#array-methods-every)
 - [Array methods: some()](#array-methods-some)
+- [Class](#class)
 - ⚠️ Work In Progress ⚠️
 
 
@@ -843,6 +844,31 @@ console.log(array.some(even));
 
 [click for more](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
+## **Class**
+
+- Classes are not hoisted, therefore need to declare first to use it.
+- Two ways to define a class: class declarations and class expression.
+- Function declaration and expression can be overwritten where as, class can be extended but cannot be overwritten.
+- When we create a class it is automatically in strict mode.
+
+```javascript
+class Car {
+  constructor(doors, engine, color) {
+    this.doors = doors;
+    this.engine = engine;
+    this.color = color;
+  }
+
+  carStat() {
+    return `This car has ${this.doors} doors, a ${this.engine} engine and the color is ${this.color}`;
+  }
+}
+
+const cx6 = new Car(4, 'VS', 'grey');
+
+console.log(cx6);
+console.log(cx6.carStat());
+```
 ---
 
 <center>⚠️ Work In Progress ⚠️</center>
